@@ -332,7 +332,10 @@
     }
     
     if (arrowDirection == JDFTooltipViewArrowDirectionUp || arrowDirection == JDFTooltipViewArrowDirectionDown) {
-        tooltipFrame.origin.x = MAX(point.x - width/2.0, 0);
+        CGFloat xForPointCenteredTooltip = point.x - width/2.0;
+        if (xForPointCenteredTooltip + tooltipFrame.size.width <= hostViewSize.width) {
+            tooltipFrame.origin.x = MAX(xForPointCenteredTooltip, 0);
+        }
         
         CGFloat minOffset = [self arrowHeight] + [self minimumArrowPadding];
         CGFloat offset = point.x - tooltipFrame.origin.x;
