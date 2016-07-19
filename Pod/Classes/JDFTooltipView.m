@@ -246,7 +246,7 @@
 
 #pragma mark - Hiding the Tooltip
 
-- (void)hideAnimated:(BOOL)animated
+- (void)hideAnimated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion
 {
     if (animated) {
         [UIView animateWithDuration:0.1 delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -264,6 +264,10 @@
                 if (self.hideCompletionBlock) {
                     self.hideCompletionBlock();
                 }
+                
+                if (completion) {
+                    completion(finished2 && finished3);
+                }
             }];
         }];
     } else {
@@ -271,9 +275,16 @@
         if (self.hideCompletionBlock) {
             self.hideCompletionBlock();
         }
+        
+        if (completion) {
+            completion(YES);
+        }
     }
 }
 
+- (void)hideAnimated:(BOOL)animated {
+    [self hideAnimated:animated completion:nil];
+}
 
 #pragma mark - Layout (Public)
 

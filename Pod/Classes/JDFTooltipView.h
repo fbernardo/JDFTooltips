@@ -202,6 +202,14 @@ typedef void (^JDFTooltipViewCompletionBlock)();
  */
 - (void)hideAnimated:(BOOL)animated;
 
+/**
+ *  Hides the tooltip, optionally animated and optionally executing a completion block.
+ *
+ *  @param animated BOOL determining whether to animate the hide or not.
+ *  @param completion void (^ __nullable)(BOOL finished) completion block to execute after hiding the view.
+ */
+- (void)hideAnimated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion;
+
 #pragma mark Gesture Recognising
 /**
  *  Adds a target/action for taps on the tooltip.
